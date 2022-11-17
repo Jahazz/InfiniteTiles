@@ -10,8 +10,6 @@ namespace InfiniteTiles.Character
         [field: SerializeField]
         public int Health { get; private set; }
         [field: SerializeField]
-        public int Energy { get; private set; }
-        [field: SerializeField]
         public int Armor { get; private set; }
         [field: SerializeField]
         public int AttacksPerSecond { get; private set; }
