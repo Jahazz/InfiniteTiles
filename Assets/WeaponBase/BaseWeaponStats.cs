@@ -7,7 +7,7 @@ namespace InfiniteTiles.Weapon
         public ObservableVariable<string> WeaponName { get; private set; }
         public ObservableVariable<float> AttackSpeed { get; private set; }
         public ObservableVariable<float> CriticalChance { get; private set; }
-        public ObservableVariable<float> Damage { get; private set; }
+        public ObservableVariable<int> Damage { get; private set; }
         public ObservableVariable<float> Range { get; private set; }
 
 
@@ -16,7 +16,7 @@ namespace InfiniteTiles.Weapon
             WeaponName = new ObservableVariable<string>(scriptableCharacterData.WeaponName);
             AttackSpeed = new ObservableVariable<float>(scriptableCharacterData.AttackSpeed);
             CriticalChance = new ObservableVariable<float>(scriptableCharacterData.CriticalChance);
-            Damage = new ObservableVariable<float>(scriptableCharacterData.Damage);
+            Damage = new ObservableVariable<int>(scriptableCharacterData.Damage);
             Range = new ObservableVariable<float>(scriptableCharacterData.Range);
         }
     }

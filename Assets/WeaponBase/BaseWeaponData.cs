@@ -12,7 +12,7 @@ namespace InfiniteTiles.Weapon
         [field: SerializeField]
         public float CriticalChance { get; private set; }
         [field: SerializeField]
-        public float Damage { get; private set; }
+        public int Damage { get; private set; }
         [field: SerializeField]
         public float Range { get; private set; }
     }

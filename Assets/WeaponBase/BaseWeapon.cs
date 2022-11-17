@@ -29,13 +29,14 @@ namespace InfiniteTiles.Weapon
         {
             if (IsTargetInRange() == true && IsWeaponOnCooldown() == false)
             {
+                LastWeaponUsage = Time.time;
                 UseWeapon();
             }
         }
 
         protected virtual void UseWeapon ()
         {
-            LastWeaponUsage = Time.time;
+            WeaponTarget.GetDamaged(WeaponStats.Damage.PresentValue);
         }
 
         private bool IsTargetInRange ()
