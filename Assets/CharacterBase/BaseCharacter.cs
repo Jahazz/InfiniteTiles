@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace InfiniteTiles.Character
 {
-    public class BaseCharacter<BaseCharacterStatsType, BaseCharacterDataType> : MonoBehaviour
+    public class BaseCharacter<BaseCharacterStatsType, BaseCharacterDataType> : MonoBehaviour, IDamageable
         where BaseCharacterDataType : BaseCharacterData
         where BaseCharacterStatsType : BaseCharacterStats<BaseCharacterDataType>, new()
     {
@@ -23,6 +23,11 @@ namespace InfiniteTiles.Character
             CharacterStats = new BaseCharacterStatsType();
             CharacterStats.InitializeBaseData(characterData);
             AttachToStatsEvents();
+        }
+
+        public float CalculateRangeBetweenTarget (Vector3 attacker)
+        {
+            return Vector3.Distance(transform.position, attacker);
         }
 
         protected virtual void FixedUpdate ()
@@ -58,7 +63,7 @@ namespace InfiniteTiles.Character
             IsAlive = false;
         }
 
-        protected virtual void GetDamaged (int damageValue)
+        public void GetDamaged (int damageValue)
         {
             CharacterStats.Health.CurrentValue.PresentValue -= damageValue;
         }

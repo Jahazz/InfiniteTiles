@@ -12,9 +12,11 @@ namespace InfiniteTiles.Character
         [field: SerializeField]
         public int Armor { get; private set; }
         [field: SerializeField]
-        public float AttackSpeedModifier { get; private set; }
+        public float BaseAttackSpeed { get; private set; }
         [field: SerializeField]
-        public float CriticalChance { get; private set; }
+        public float BaseCriticalChance { get; private set; }
+        [field: SerializeField]
+        public float BaseDamage { get; private set; }
         [field: SerializeField]
         public float MovementSpeed { get; private set; }
     }
