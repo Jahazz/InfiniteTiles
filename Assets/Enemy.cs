@@ -27,23 +27,31 @@ public class Enemy : BaseCharacter
         LastRendererTime = Time.time;
     }
 
-    void Update ()
+    protected virtual void Update ()
+    {
+        MoveEnemy();
+        RespawnIfNotRendered();
+    }
+
+    protected virtual void MoveEnemy ()
     {
         ConnectedRigidbody.AddForce(((Target.position - transform.position).normalized * DesiredSpeed) - ConnectedRigidbody.velocity, ForceMode.VelocityChange);
-        RespawnIfNotRendered();
-        //NavMeshAgent.SetDestination(Target.position);
     }
 
     private void RespawnIfNotRendered ()
     {
         CheckRenderer();
 
-        if (LastRendererTime  + NonRenderTimeToRespawn < Time.time)
+        if (IsRenderedTooLongTimeAgo() == true)
         {
             LastRendererTime = Time.time;
             EnemyManager.RespawnEnemyInRandomPosition(this);
-            Debug.Log("Respawned");
         }
+    }
+
+    private bool IsRenderedTooLongTimeAgo ()
+    {
+        return LastRendererTime + NonRenderTimeToRespawn < Time.time;
     }
 
     private void CheckRenderer ()
