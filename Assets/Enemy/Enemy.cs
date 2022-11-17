@@ -17,7 +17,6 @@ public class Enemy : BaseCharacter<BaseCharacterStats<BaseCharacterData>, BaseCh
     private Transform Target { get; set; }
     private EnemyManager EnemyManager { get; set; }
 
-
     public void Initialize (Transform target, CustomTileManager tileManager, EnemyManager enemyManager)
     {
         Target = target;
