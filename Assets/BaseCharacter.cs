@@ -1,9 +1,12 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class BaseCharacter : MonoBehaviour
 {
+    [field: Space]
+    [field: Header(nameof(BaseCharacter))]
+    [field: SerializeField]
+    private float GroundDetectorRayLenght { get; set; }
+
     private const string GROUND_TAG = "Ground";
 
     protected virtual void FixedUpdate ()
@@ -16,7 +19,7 @@ public class BaseCharacter : MonoBehaviour
         RaycastHit hit;
         Ray ray = new Ray(transform.position + Vector3.up, Vector3.down);
 
-        if (Physics.Raycast(ray, out hit, 1000))
+        if (Physics.Raycast(ray, out hit, GroundDetectorRayLenght))
         {
             if (hit.transform.tag == GROUND_TAG)
             {

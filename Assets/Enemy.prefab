@@ -47,6 +47,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: afa57fa2557d0264fb5fa3ca4997b96b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  <GroundDetectorRayLenght>k__BackingField: 2
   <NavMeshAgent>k__BackingField: {fileID: 0}
   <ConnectedRigidbody>k__BackingField: {fileID: 6370328297264623722}
   <DesiredSpeed>k__BackingField: 3
