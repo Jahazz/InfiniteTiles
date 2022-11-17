@@ -1,18 +1,14 @@
-using System.Collections;
-using System.Collections.Generic;
+using InfiniteTiles.Character;
 using UnityEngine;
-using UnityEngine.AI;
 using UnityEngine.InputSystem;
 
-public class CharacterController : BaseCharacter
+public class CharacterController : BaseCharacter<BaseCharacterStats<BaseCharacterData>, BaseCharacterData>
 {
 
     [field: SerializeField]
     private Animator CharacterAnimator { get; set; }
     [field: SerializeField]
     private Transform RotationTransform { get; set; }
-    [field: SerializeField]
-    public float CharacterSpeed { get; set; }
     [field: SerializeField]
     private float ForceMultiplier { get; set; }
     [field: SerializeField]
@@ -52,7 +48,7 @@ public class CharacterController : BaseCharacter
         if (value != Vector2.zero)
         {
             RotationTransform.rotation = ConvertInputToRotation(value);
-            SetSpeed(CharacterSpeed);
+            SetSpeed(CharacterStats.MovementSpeed.CurrentValue.PresentValue);
         }
         else
         {
