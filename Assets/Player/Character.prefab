@@ -4189,9 +4189,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   <GroundDetectorRayLenght>k__BackingField: 2
+  <CharacterDataScriptableObject>k__BackingField: {fileID: 11400000, guid: 58c2e57cbebb55c4e869e3cd5ea3a9a1,
+    type: 2}
   <CharacterAnimator>k__BackingField: {fileID: 8082065966442041581}
   <RotationTransform>k__BackingField: {fileID: 6515079908931483680}
-  <CharacterSpeed>k__BackingField: 1
   <ForceMultiplier>k__BackingField: 1
   <CharacterRigidbody>k__BackingField: {fileID: 1399027770}
   <CharacterCollider>k__BackingField: {fileID: 1399027769}

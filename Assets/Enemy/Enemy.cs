@@ -1,6 +1,7 @@
+using InfiniteTiles.Character;
 using UnityEngine;
 
-public class Enemy : BaseCharacter
+public class Enemy : BaseCharacter<BaseCharacterStats<BaseCharacterData>, BaseCharacterData>
 {
     [field: Space]
     [field: Header(nameof(Enemy))]
@@ -9,15 +10,12 @@ public class Enemy : BaseCharacter
     [field: SerializeField]
     private Renderer EnemyRenderer { get; set; }
     [field: SerializeField]
-    private float DesiredSpeed { get; set; }
-    [field: SerializeField]
     private float NonRenderTimeToRespawn { get; set; }
 
     private float LastRendererTime { get; set; }
     private CustomTileManager TileManager { get; set; }
     private Transform Target { get; set; }
     private EnemyManager EnemyManager { get; set; }
-
 
     public void Initialize (Transform target, CustomTileManager tileManager, EnemyManager enemyManager)
     {
@@ -35,7 +33,7 @@ public class Enemy : BaseCharacter
 
     protected virtual void MoveEnemy ()
     {
-        ConnectedRigidbody.AddForce(((Target.position - transform.position).normalized * DesiredSpeed) - ConnectedRigidbody.velocity, ForceMode.VelocityChange);
+        ConnectedRigidbody.AddForce(((Target.position - transform.position).normalized * CharacterStats.MovementSpeed.CurrentValue.PresentValue) - ConnectedRigidbody.velocity, ForceMode.VelocityChange);
     }
 
     private void RespawnIfNotRendered ()
