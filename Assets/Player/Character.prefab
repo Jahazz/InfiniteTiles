@@ -4188,9 +4188,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c71b6e96624996f4aaa0942659d172e0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <GroundDetectorRayLenght>k__BackingField: 2
+  <GroundDetectorRayLenght>k__BackingField: 10
   <CharacterDataScriptableObject>k__BackingField: {fileID: 11400000, guid: 58c2e57cbebb55c4e869e3cd5ea3a9a1,
     type: 2}
+  WeaponsCollection: []
   <CharacterAnimator>k__BackingField: {fileID: 8082065966442041581}
   <RotationTransform>k__BackingField: {fileID: 6515079908931483680}
   <ForceMultiplier>k__BackingField: 1

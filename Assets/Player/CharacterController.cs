@@ -22,10 +22,10 @@ namespace InfiniteTiles.Character.PlayerCharacter
 
         protected override void FixedUpdate ()
         {
-            base.FixedUpdate();
-
             UpdateCharacterSpeed();
             UpdateAnimationSpeed();
+
+            base.FixedUpdate();
         }
 
         private void UpdateCharacterSpeed ()

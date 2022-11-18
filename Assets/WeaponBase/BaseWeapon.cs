@@ -3,26 +3,31 @@ using UnityEngine;
 
 namespace InfiniteTiles.Weapon
 {
-    public class BaseWeapon<BaseWeaponStatsType, BaseWeaponDataType> : MonoBehaviour
+    public class BaseWeapon<BaseWeaponStatsType, BaseWeaponDataType> : MonoBehaviour, ITargetable
         where BaseWeaponDataType : BaseWeaponData
         where BaseWeaponStatsType : BaseWeaponStats<BaseWeaponDataType>, new()
     {
         [field: SerializeField]
         private BaseWeaponDataType WeaponData { get; set; }
-
-        public IDamageable WeaponTarget { get; set; }
         public BaseWeaponStatsType WeaponStats { get; set; }
         private float LastWeaponUsage { get; set; }
+        public IDamageable CurrentTarget { get; set; }
 
         protected virtual void Update ()
         {
             CheckFireConditions();
         }
 
+        protected virtual void Start ()
+        {
+            Initialize();
+        }
+
         public void Initialize ()
         {
             WeaponStats = new BaseWeaponStatsType();
             WeaponStats.InitializeBaseData(WeaponData);
+            LastWeaponUsage = Time.time;
         }
 
         private void CheckFireConditions ()
@@ -36,20 +41,23 @@ namespace InfiniteTiles.Weapon
 
         protected virtual void UseWeapon ()
         {
-            WeaponTarget.GetDamaged(WeaponStats.Damage.PresentValue);
+            CurrentTarget.GetDamaged(WeaponStats.Damage.PresentValue);
         }
 
         private bool IsTargetInRange ()
         {
-            return WeaponTarget.CalculateRangeBetweenTarget(transform.position) <= WeaponStats.Range.PresentValue;
+            return Vector3.Distance(CurrentTarget.GetTargetTransform().position,transform.position) <= WeaponStats.Range.PresentValue;
         }
 
         private bool IsWeaponOnCooldown ()
         {
-            return LastWeaponUsage + WeaponStats.AttackSpeed.PresentValue < Time.time;
+            return LastWeaponUsage + WeaponStats.AttackSpeed.PresentValue > Time.time;
         }
 
-        
+        protected void OnDrawGizmos ()
+        {
+            Gizmos.DrawWireSphere(transform.position, WeaponStats.Range.PresentValue);
+        }
     }
 }
 

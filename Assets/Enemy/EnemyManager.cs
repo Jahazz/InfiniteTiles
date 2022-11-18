@@ -11,7 +11,7 @@ public class EnemyManager : MonoBehaviour
     [field: SerializeField]
     private float TimeBetweenSpawns { get; set; }
     [field: SerializeField]
-    private Transform PlayerTransform { get; set; }
+    private InfiniteTiles.Character.PlayerCharacter.CharacterController PlayerController { get; set; }
     [field: SerializeField]
     private CustomTileManager TileManager { get; set; }
     [field: SerializeField]
@@ -63,7 +63,7 @@ public class EnemyManager : MonoBehaviour
         Enemy enemyToSpawn = EnemiesToSpawn[Random.Range(0, EnemiesToSpawn.Count)];
         Enemy spawnedEnemy = Instantiate(enemyToSpawn, GetRandomPointBehindBounds(), Quaternion.identity);
 
-        spawnedEnemy.Initialize(PlayerTransform, TileManager, this);
+        spawnedEnemy.Initialize(PlayerController, TileManager, this);
         CurrentlyPresentEnemies.Add(spawnedEnemy);
     }
 
