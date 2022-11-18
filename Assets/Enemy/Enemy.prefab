@@ -47,10 +47,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: afa57fa2557d0264fb5fa3ca4997b96b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <GroundDetectorRayLenght>k__BackingField: 2
-  <NavMeshAgent>k__BackingField: {fileID: 0}
+  <GroundDetectorRayLenght>k__BackingField: 10
+  <CharacterDataScriptableObject>k__BackingField: {fileID: 0}
+  WeaponsCollection: []
   <ConnectedRigidbody>k__BackingField: {fileID: 6370328297264623722}
-  <DesiredSpeed>k__BackingField: 3
   <EnemyRenderer>k__BackingField: {fileID: 1244363305400798686}
   <NonRenderTimeToRespawn>k__BackingField: 5
 --- !u!54 &6370328297264623722

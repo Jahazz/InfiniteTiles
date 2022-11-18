@@ -9,13 +9,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 32d4dfff17f9ba842a2019be2b84862d, type: 3}
-  m_Name: PlayerCharacterData
+  m_Script: {fileID: 11500000, guid: b9d9155104eedc6468202155f12c0794, type: 3}
+  m_Name: BaseCharacterData
   m_EditorClassIdentifier: 
-  <Name>k__BackingField: 
-  <Health>k__BackingField: 100
+  <Name>k__BackingField: Meele enemy
+  <Health>k__BackingField: 10
   <Armor>k__BackingField: 0
-  <BaseAttackSpeed>k__BackingField: 0
-  <BaseCriticalChance>k__BackingField: 0
-  <BaseDamage>k__BackingField: 0
+  <BaseAttackSpeed>k__BackingField: 1
+  <BaseCriticalChance>k__BackingField: 1
+  <BaseDamage>k__BackingField: 1
   <MovementSpeed>k__BackingField: 3

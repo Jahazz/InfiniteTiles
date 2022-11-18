@@ -1,8 +1,11 @@
+using AYellowpaper;
+using InfiniteTiles.Weapon;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace InfiniteTiles.Character
 {
-    public class BaseCharacter<BaseCharacterStatsType, BaseCharacterDataType> : MonoBehaviour
+    public class BaseCharacter<BaseCharacterStatsType, BaseCharacterDataType> : MonoBehaviour, IDamageable
         where BaseCharacterDataType : BaseCharacterData
         where BaseCharacterStatsType : BaseCharacterStats<BaseCharacterDataType>, new()
     {
@@ -12,17 +15,25 @@ namespace InfiniteTiles.Character
         private float GroundDetectorRayLenght { get; set; }
         [field: SerializeField]
         private BaseCharacterDataType CharacterDataScriptableObject { get; set; }
+        [RequireInterface(typeof(ITargetable))]
+        public List<MonoBehaviour> WeaponsCollection; //HACK has to use variable instead of property for package to work. Kept the uppercase for name consistency
 
         public BaseCharacterStatsType CharacterStats { get; private set; }
         private bool IsAlive { get; set; } = true;
 
         private const string GROUND_TAG = "Ground";
 
-        public void Initialize (BaseCharacterDataType characterData)
+        public void Initialize ()
         {
             CharacterStats = new BaseCharacterStatsType();
-            CharacterStats.InitializeBaseData(characterData);
+            CharacterStats.InitializeBaseData(CharacterDataScriptableObject);
             AttachToStatsEvents();
+            InitializeWeapons();
+        }
+
+        public Transform GetTargetTransform ()
+        {
+            return transform;
         }
 
         protected virtual void FixedUpdate ()
@@ -33,6 +44,16 @@ namespace InfiniteTiles.Character
         protected virtual void OnDestroy ()
         {
             DetachFromStatsEvents();
+        }
+
+        protected virtual void Start ()
+        {
+            Initialize();
+        }
+
+        protected virtual void InitializeWeapons ()
+        {
+
         }
 
         protected virtual void AttachToStatsEvents ()
@@ -56,11 +77,13 @@ namespace InfiniteTiles.Character
         protected virtual void Die ()
         {
             IsAlive = false;
+            Debug.Log("Died");
         }
 
-        protected virtual void GetDamaged (int damageValue)
+        public void GetDamaged (int damageValue)
         {
             CharacterStats.Health.CurrentValue.PresentValue -= damageValue;
+            Debug.Log("GetDamaged for "+damageValue);
         }
 
         private void OnHealthChange (int value)

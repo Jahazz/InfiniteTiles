@@ -153,9 +153,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   <EnemiesToSpawn>k__BackingField:
-  - {fileID: 1244363303999491787, guid: e150921e61a04d0498642780dc4d81a9, type: 3}
+  - {fileID: 122564705651818762, guid: 85fc32dde60c4554eae9156feeea0816, type: 3}
   <TimeBetweenSpawns>k__BackingField: 1
-  <PlayerTransform>k__BackingField: {fileID: 2032053567}
+  <PlayerController>k__BackingField: {fileID: 2032053571}
   <TileManager>k__BackingField: {fileID: 2096498279}
   <SpawnRangeBehindBounds>k__BackingField: 1
   <SpawnRangeBehindBoundsOffset>k__BackingField: 4
@@ -381,12 +381,18 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!4 &2032053567 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 6691742953465067912, guid: 9e089c59fed134d43bd32368c5404f4f,
+--- !u!114 &2032053571 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6867152523941275090, guid: 9e089c59fed134d43bd32368c5404f4f,
     type: 3}
   m_PrefabInstance: {fileID: 2448555514087489488}
   m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c71b6e96624996f4aaa0942659d172e0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2096498276
 GameObject:
   m_ObjectHideFlags: 0
@@ -436,8 +442,6 @@ MonoBehaviour:
   - {fileID: 4830004182973512627, guid: 42b0780503990c242b657990f57eed96, type: 3}
   - {fileID: 4830004182973512627, guid: f7b8f7a197383e14eacfd2d0122cdfe6, type: 3}
   - {fileID: 4830004182973512627, guid: ecc67b57a0f6e8a49ad8ccdaed08e557, type: 3}
-  <TileConectorPrefab>k__BackingField: {fileID: 7899998715029652101, guid: 14df654bbf0dd34439b4308c89a646f2,
-    type: 3}
   <NavMesh>k__BackingField: {fileID: 0}
 --- !u!1001 &2448555514087489488
 PrefabInstance:

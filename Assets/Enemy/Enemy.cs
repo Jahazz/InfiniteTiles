@@ -1,7 +1,9 @@
 using InfiniteTiles.Character;
+using InfiniteTiles.Weapon;
+using System.Collections.Generic;
 using UnityEngine;
 
-public class Enemy : BaseCharacter<BaseCharacterStats<BaseCharacterData>, BaseCharacterData>
+public class Enemy : BaseCharacter<BaseCharacterStats<BaseCharacterData>, BaseCharacterData>, ITargetable
 {
     [field: Space]
     [field: Header(nameof(Enemy))]
@@ -14,12 +16,12 @@ public class Enemy : BaseCharacter<BaseCharacterStats<BaseCharacterData>, BaseCh
 
     private float LastRendererTime { get; set; }
     private CustomTileManager TileManager { get; set; }
-    private Transform Target { get; set; }
     private EnemyManager EnemyManager { get; set; }
+    public IDamageable CurrentTarget { get; set; }
 
-    public void Initialize (Transform target, CustomTileManager tileManager, EnemyManager enemyManager)
+    public void Initialize (IDamageable target, CustomTileManager tileManager, EnemyManager enemyManager)
     {
-        Target = target;
+        CurrentTarget = target;
         TileManager = tileManager;
         EnemyManager = enemyManager;
         LastRendererTime = Time.time;
@@ -31,9 +33,19 @@ public class Enemy : BaseCharacter<BaseCharacterStats<BaseCharacterData>, BaseCh
         RespawnIfNotRendered();
     }
 
+    protected override void InitializeWeapons ()
+    {
+        base.InitializeWeapons();
+
+        foreach (ITargetable weapon in WeaponsCollection)
+        {
+            weapon.CurrentTarget = CurrentTarget;
+        }
+    }
+
     protected virtual void MoveEnemy ()
     {
-        ConnectedRigidbody.AddForce(((Target.position - transform.position).normalized * CharacterStats.MovementSpeed.CurrentValue.PresentValue) - ConnectedRigidbody.velocity, ForceMode.VelocityChange);
+        ConnectedRigidbody.AddForce(((CurrentTarget.GetTargetTransform().position - transform.position).normalized * CharacterStats.MovementSpeed.CurrentValue.PresentValue) - ConnectedRigidbody.velocity, ForceMode.VelocityChange);
     }
 
     private void RespawnIfNotRendered ()
