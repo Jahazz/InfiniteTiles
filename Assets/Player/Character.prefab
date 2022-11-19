@@ -4130,6 +4130,7 @@ GameObject:
   - component: {fileID: 2779003682307156816}
   - component: {fileID: 1399027770}
   - component: {fileID: 1399027769}
+  - component: {fileID: 4900222664891650378}
   m_Layer: 6
   m_Name: Character
   m_TagString: Player
@@ -4188,13 +4189,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c71b6e96624996f4aaa0942659d172e0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  <ConnectedRigidbody>k__BackingField: {fileID: 1399027770}
+  <RotationTransform>k__BackingField: {fileID: 6515079908931483680}
+  weaponsCollection: []
+  <ForceMultiplier>k__BackingField: 1
   <GroundDetectorRayLenght>k__BackingField: 10
   <CharacterDataScriptableObject>k__BackingField: {fileID: 11400000, guid: 58c2e57cbebb55c4e869e3cd5ea3a9a1,
     type: 2}
-  WeaponsCollection: []
-  <CharacterAnimator>k__BackingField: {fileID: 8082065966442041581}
-  <RotationTransform>k__BackingField: {fileID: 6515079908931483680}
-  <ForceMultiplier>k__BackingField: 1
   <CharacterRigidbody>k__BackingField: {fileID: 1399027770}
   <CharacterCollider>k__BackingField: {fileID: 1399027769}
 --- !u!114 &2779003682307156816
@@ -4318,6 +4319,23 @@ CapsuleCollider:
   m_Height: 2
   m_Direction: 1
   m_Center: {x: 0, y: 1, z: 0}
+--- !u!114 &4900222664891650378
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6311241203311600434}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2a22ca0962e976c42aa0d6e4da1daa5e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ConnectedCharacter:
+    _underlyingValue: {fileID: 6867152523941275090}
+  <CharacterAnimator>k__BackingField: {fileID: 8082065966442041581}
+  <MovementSpeedVariableName>k__BackingField: MovementSpeed
+  <AttackVariableNameCollection>k__BackingField: []
 --- !u!1 &6340963080872065164
 GameObject:
   m_ObjectHideFlags: 0

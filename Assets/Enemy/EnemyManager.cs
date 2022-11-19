@@ -29,7 +29,11 @@ public class EnemyManager : MonoBehaviour
     public void Start ()
     {
         InitializeSpawnRects();
-        StartCoroutine(EnemySpawnCoroutine());
+
+        if (EnemiesToSpawn.Count > 0)
+        {
+            StartCoroutine(EnemySpawnCoroutine());
+        }
     }
 
     public void InitializeSpawnRects ()

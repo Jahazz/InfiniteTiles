@@ -1,14 +1,11 @@
 using InfiniteTiles.Character;
 using InfiniteTiles.Weapon;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Enemy : BaseCharacter<BaseCharacterStats<BaseCharacterData>, BaseCharacterData>, ITargetable
 {
     [field: Space]
     [field: Header(nameof(Enemy))]
-    [field: SerializeField]
-    private Rigidbody ConnectedRigidbody { get; set; }
     [field: SerializeField]
     private Renderer EnemyRenderer { get; set; }
     [field: SerializeField]
@@ -25,12 +22,18 @@ public class Enemy : BaseCharacter<BaseCharacterStats<BaseCharacterData>, BaseCh
         TileManager = tileManager;
         EnemyManager = enemyManager;
         LastRendererTime = Time.time;
+
+        Initialize();
+
+        CurrentCharacterSpeed = CharacterStats.MovementSpeed.CurrentValue.PresentValue;
     }
 
-    protected virtual void Update ()
+    protected override void Update ()
     {
-        MoveEnemy();
         RespawnIfNotRendered();
+        UpdateModelRotation();
+
+        base.Update();
     }
 
     protected override void InitializeWeapons ()
@@ -43,9 +46,12 @@ public class Enemy : BaseCharacter<BaseCharacterStats<BaseCharacterData>, BaseCh
         }
     }
 
-    protected virtual void MoveEnemy ()
+    private void UpdateModelRotation ()
     {
-        ConnectedRigidbody.AddForce(((CurrentTarget.GetTargetTransform().position - transform.position).normalized * CharacterStats.MovementSpeed.CurrentValue.PresentValue) - ConnectedRigidbody.velocity, ForceMode.VelocityChange);
+
+        Vector3 targetPostition = CurrentTarget.GetTargetTransform().transform.position;
+        targetPostition.y = RotationTransform.transform.position.y;
+        RotationTransform.LookAt(targetPostition);
     }
 
     private void RespawnIfNotRendered ()
