@@ -1,9 +1,12 @@
 using InfiniteTiles.Character;
 using InfiniteTiles.Weapon;
 using UnityEngine;
+using static InfiniteTiles.Weapon.IBaseWeapon;
 
-public class Enemy : BaseCharacter<BaseCharacterStats<BaseCharacterData>, BaseCharacterData>, ITargetable
+public class Enemy : BaseCharacter<BaseCharacterStats<BaseCharacterData>, BaseCharacterData>
 {
+    public event HitEventParameters OnAttackStart;
+
     [field: Space]
     [field: Header(nameof(Enemy))]
     [field: SerializeField]
@@ -40,7 +43,7 @@ public class Enemy : BaseCharacter<BaseCharacterStats<BaseCharacterData>, BaseCh
     {
         base.InitializeWeapons();
 
-        foreach (ITargetable weapon in WeaponsCollection)
+        foreach (IBaseWeapon weapon in WeaponsCollection)
         {
             weapon.CurrentTarget = CurrentTarget;
         }
@@ -48,8 +51,7 @@ public class Enemy : BaseCharacter<BaseCharacterStats<BaseCharacterData>, BaseCh
 
     private void UpdateModelRotation ()
     {
-
-        Vector3 targetPostition = CurrentTarget.GetTargetTransform().transform.position;
+        Vector3 targetPostition = CurrentTarget.GetTargetTransform().position;
         targetPostition.y = RotationTransform.transform.position.y;
         RotationTransform.LookAt(targetPostition);
     }

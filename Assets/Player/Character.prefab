@@ -2781,8 +2781,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4297969550677118698}
+  - component: {fileID: 7979759169814837083}
   m_Layer: 6
-  m_Name: GameObject
+  m_Name: OnHitEffect
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2795,14 +2796,30 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3370676279759077727}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalRotation: {x: 0, y: 0.7071068, z: 0, w: 0.7071068}
+  m_LocalPosition: {x: 0, y: 1.3, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 6691742953465067912}
   m_RootOrder: 3
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
+--- !u!114 &7979759169814837083
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3370676279759077727}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 258a9c7919ef5894fa6c323bce7e279c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  <BaseCharacter>k__BackingField:
+    _underlyingValue: {fileID: 6867152523941275090}
+  <ParticleSystemPrefab>k__BackingField: {fileID: 8209921999776886696, guid: 0836c63e57441604ab5404430f41cac9,
+    type: 3}
 --- !u!1 &3501635990178073102
 GameObject:
   m_ObjectHideFlags: 0
@@ -4192,7 +4209,6 @@ MonoBehaviour:
   <ConnectedRigidbody>k__BackingField: {fileID: 1399027770}
   <RotationTransform>k__BackingField: {fileID: 6515079908931483680}
   weaponsCollection: []
-  <ForceMultiplier>k__BackingField: 1
   <GroundDetectorRayLenght>k__BackingField: 10
   <CharacterDataScriptableObject>k__BackingField: {fileID: 11400000, guid: 58c2e57cbebb55c4e869e3cd5ea3a9a1,
     type: 2}
@@ -4335,6 +4351,7 @@ MonoBehaviour:
     _underlyingValue: {fileID: 6867152523941275090}
   <CharacterAnimator>k__BackingField: {fileID: 8082065966442041581}
   <MovementSpeedVariableName>k__BackingField: MovementSpeed
+  <DeathVariableName>k__BackingField: 
   <AttackVariableNameCollection>k__BackingField: []
 --- !u!1 &6340963080872065164
 GameObject:

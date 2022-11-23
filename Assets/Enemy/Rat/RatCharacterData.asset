@@ -18,4 +18,4 @@ MonoBehaviour:
   <BaseAttackSpeed>k__BackingField: 1
   <BaseCriticalChance>k__BackingField: 1
   <BaseDamage>k__BackingField: 1
-  <MovementSpeed>k__BackingField: 10
+  <MovementSpeed>k__BackingField: 3

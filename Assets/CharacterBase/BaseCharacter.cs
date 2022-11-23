@@ -2,6 +2,7 @@ using AYellowpaper;
 using InfiniteTiles.Weapon;
 using System.Collections.Generic;
 using UnityEngine;
+using static IBaseCharacter;
 
 namespace InfiniteTiles.Character
 {
@@ -9,16 +10,20 @@ namespace InfiniteTiles.Character
         where BaseCharacterDataType : BaseCharacterData
         where BaseCharacterStatsType : BaseCharacterStats<BaseCharacterDataType>, new()
     {
+        public event OnHitRecievedArguments OnHitRecieved;
+
         [field: Space]
         [field: Header(nameof(BaseCharacter<BaseCharacterStatsType, BaseCharacterDataType>))]
         [field: SerializeField]
         public Rigidbody ConnectedRigidbody { get; set; }
         [field: SerializeField]
         public Transform RotationTransform { get; set; }
-        [RequireInterface(typeof(ITargetable))]
+        [RequireInterface(typeof(IBaseWeapon))]
         public List<MonoBehaviour> weaponsCollection; //HACK has to use variable instead of property for package to work. Kept the uppercase for name consistency
         [field: SerializeField]
         private float GroundDetectorRayLenght { get; set; }
+        [field: SerializeField]
+        private bool IsMovingByTranslation { get; set; }
 
         public BaseCharacterStatsType CharacterStats { get; private set; }
         private bool IsAlive { get; set; } = true;
@@ -27,10 +32,12 @@ namespace InfiniteTiles.Character
         public List<MonoBehaviour> WeaponsCollection { get => weaponsCollection; set => weaponsCollection = value; }
         public float CurrentCharacterSpeed { get; set; }
 
-        private const string GROUND_TAG = "Ground";
+        private int GroundLayerMask { get; set; }
+        private const string GROUND_LAYER_NAME = "Ground";
 
         public void Initialize ()
         {
+            GroundLayerMask = LayerMask.NameToLayer(GROUND_LAYER_NAME);
             CharacterStats = new BaseCharacterStatsType();
             CharacterStats.InitializeBaseData(CharacterDataScriptableObject);
             AttachToStatsEvents();
@@ -99,7 +106,7 @@ namespace InfiniteTiles.Character
         public void GetDamaged (int damageValue)
         {
             CharacterStats.Health.CurrentValue.PresentValue -= damageValue;
-            Debug.Log("GetDamaged for "+damageValue);
+            OnHitRecieved?.Invoke();
         }
 
         private void OnHealthChange (int value)
@@ -111,14 +118,10 @@ namespace InfiniteTiles.Character
         {
             RaycastHit hit;
             Ray ray = new Ray(transform.position + Vector3.up, Vector3.down);
-            Debug.DrawRay(transform.position + Vector3.up, Vector3.down * GroundDetectorRayLenght, Color.green);
-            if (Physics.Raycast(ray, out hit, GroundDetectorRayLenght))
+
+            if (Physics.Raycast(ray, out hit, GroundDetectorRayLenght, 1 << GroundLayerMask))
             {
-                if (hit.transform.tag == GROUND_TAG)
-                {
-                    transform.position = hit.point;
-                    Debug.Log("GroundHit" + CharacterStats.CharacterName.PresentValue);
-                }
+                transform.position = new Vector3(transform.position.x,hit.point.y, transform.position.z);
             }
         }
 

@@ -15,5 +15,5 @@ MonoBehaviour:
   <WeaponName>k__BackingField: MeeleWeapon
   <AttackSpeed>k__BackingField: 1
   <CriticalChance>k__BackingField: 0
-  <Damage>k__BackingField: 0
-  <Range>k__BackingField: 0.1
+  <Damage>k__BackingField: 10
+  <Range>k__BackingField: 1

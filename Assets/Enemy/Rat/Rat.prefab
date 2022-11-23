@@ -567,7 +567,9 @@ MonoBehaviour:
     _underlyingValue: {fileID: 122564705651818762}
   <CharacterAnimator>k__BackingField: {fileID: 7335576610284966725}
   <MovementSpeedVariableName>k__BackingField: MovementSpeed
-  <AttackVariableNameCollection>k__BackingField: []
+  <DeathVariableName>k__BackingField: 
+  <AttackVariableNameCollection>k__BackingField:
+  - JumpBite
 --- !u!4 &8205487401166214723 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7000860426967701890, guid: e150921e61a04d0498642780dc4d81a9,
