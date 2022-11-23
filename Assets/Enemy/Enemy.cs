@@ -1,14 +1,14 @@
 using InfiniteTiles.Character;
 using InfiniteTiles.Weapon;
-using System.Collections.Generic;
 using UnityEngine;
+using static InfiniteTiles.Weapon.IBaseWeapon;
 
-public class Enemy : BaseCharacter<BaseCharacterStats<BaseCharacterData>, BaseCharacterData>, ITargetable
+public class Enemy : BaseCharacter<BaseCharacterStats<BaseCharacterData>, BaseCharacterData>
 {
+    public event HitEventParameters OnAttackStart;
+
     [field: Space]
     [field: Header(nameof(Enemy))]
-    [field: SerializeField]
-    private Rigidbody ConnectedRigidbody { get; set; }
     [field: SerializeField]
     private Renderer EnemyRenderer { get; set; }
     [field: SerializeField]
@@ -25,27 +25,35 @@ public class Enemy : BaseCharacter<BaseCharacterStats<BaseCharacterData>, BaseCh
         TileManager = tileManager;
         EnemyManager = enemyManager;
         LastRendererTime = Time.time;
+
+        Initialize();
+
+        CurrentCharacterSpeed = CharacterStats.MovementSpeed.CurrentValue.PresentValue;
     }
 
-    protected virtual void Update ()
+    protected override void Update ()
     {
-        MoveEnemy();
         RespawnIfNotRendered();
+        UpdateModelRotation();
+
+        base.Update();
     }
 
     protected override void InitializeWeapons ()
     {
         base.InitializeWeapons();
 
-        foreach (ITargetable weapon in WeaponsCollection)
+        foreach (IBaseWeapon weapon in WeaponsCollection)
         {
             weapon.CurrentTarget = CurrentTarget;
         }
     }
 
-    protected virtual void MoveEnemy ()
+    private void UpdateModelRotation ()
     {
-        ConnectedRigidbody.AddForce(((CurrentTarget.GetTargetTransform().position - transform.position).normalized * CharacterStats.MovementSpeed.CurrentValue.PresentValue) - ConnectedRigidbody.velocity, ForceMode.VelocityChange);
+        Vector3 targetPostition = CurrentTarget.GetTargetTransform().position;
+        targetPostition.y = RotationTransform.transform.position.y;
+        RotationTransform.LookAt(targetPostition);
     }
 
     private void RespawnIfNotRendered ()

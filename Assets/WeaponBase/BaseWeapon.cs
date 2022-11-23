@@ -3,15 +3,39 @@ using UnityEngine;
 
 namespace InfiniteTiles.Weapon
 {
-    public class BaseWeapon<BaseWeaponStatsType, BaseWeaponDataType> : MonoBehaviour, ITargetable
+    public class BaseWeapon<BaseWeaponStatsType, BaseWeaponDataType> : MonoBehaviour, IBaseWeapon
         where BaseWeaponDataType : BaseWeaponData
         where BaseWeaponStatsType : BaseWeaponStats<BaseWeaponDataType>, new()
     {
+        public event IBaseWeapon.HitEventParameters OnAttackStart;
+
         [field: SerializeField]
         private BaseWeaponDataType WeaponData { get; set; }
+
+        public IDamageable CurrentTarget { get; set; }
         public BaseWeaponStatsType WeaponStats { get; set; }
         private float LastWeaponUsage { get; set; }
-        public IDamageable CurrentTarget { get; set; }
+
+        public void Initialize ()
+        {
+            WeaponStats = new BaseWeaponStatsType();
+            WeaponStats.InitializeBaseData(WeaponData);
+            LastWeaponUsage = Time.time;
+        }
+
+        public bool IsTargetInRange (IDamageable target)
+        {
+            return Vector3.Distance(target.GetTargetTransform().position, transform.position) <= WeaponStats.Range.PresentValue;
+        }
+        public virtual void UseWeapon ()
+        {
+            OnAttackStart?.Invoke(CurrentTarget);
+        }
+
+        public virtual void DealDamage (IDamageable target)
+        {
+            CurrentTarget.GetDamaged(WeaponStats.Damage.PresentValue);
+        }
 
         protected virtual void Update ()
         {
@@ -23,40 +47,18 @@ namespace InfiniteTiles.Weapon
             Initialize();
         }
 
-        public void Initialize ()
-        {
-            WeaponStats = new BaseWeaponStatsType();
-            WeaponStats.InitializeBaseData(WeaponData);
-            LastWeaponUsage = Time.time;
-        }
-
         private void CheckFireConditions ()
         {
-            if (IsTargetInRange() == true && IsWeaponOnCooldown() == false)
+            if (IsTargetInRange(CurrentTarget) == true && IsWeaponOnCooldown() == false)
             {
                 LastWeaponUsage = Time.time;
                 UseWeapon();
             }
         }
 
-        protected virtual void UseWeapon ()
-        {
-            CurrentTarget.GetDamaged(WeaponStats.Damage.PresentValue);
-        }
-
-        private bool IsTargetInRange ()
-        {
-            return Vector3.Distance(CurrentTarget.GetTargetTransform().position,transform.position) <= WeaponStats.Range.PresentValue;
-        }
-
         private bool IsWeaponOnCooldown ()
         {
             return LastWeaponUsage + WeaponStats.AttackSpeed.PresentValue > Time.time;
-        }
-
-        protected void OnDrawGizmos ()
-        {
-            Gizmos.DrawWireSphere(transform.position, WeaponStats.Range.PresentValue);
         }
     }
 }
