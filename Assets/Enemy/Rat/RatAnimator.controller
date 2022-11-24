@@ -43,7 +43,7 @@ AnimatorState:
   m_MirrorParameterActive: 0
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
-  m_Motion: {fileID: 7400000, guid: d5fe25ed1af167241882d4e02f9989e6, type: 3}
+  m_Motion: {fileID: 7400000, guid: b7eab972e41246643925009234d06e56, type: 3}
   m_Tag: 
   m_SpeedParameter: 
   m_MirrorParameter: 
@@ -58,7 +58,7 @@ AnimatorStateTransition:
   m_Name: 
   m_Conditions:
   - m_ConditionMode: 4
-    m_ConditionEvent: MovementSpeed
+    m_ConditionEvent: RunForward
     m_EventTreshold: 0.01
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: 0}
@@ -66,12 +66,12 @@ AnimatorStateTransition:
   m_Mute: 0
   m_IsExit: 1
   serializedVersion: 3
-  m_TransitionDuration: 0.25
+  m_TransitionDuration: 1
   m_TransitionOffset: 0
   m_ExitTime: 0.625
-  m_HasExitTime: 0
-  m_HasFixedDuration: 1
-  m_InterruptionSource: 0
+  m_HasExitTime: 1
+  m_HasFixedDuration: 0
+  m_InterruptionSource: 2
   m_OrderedInterruption: 1
   m_CanTransitionToSelf: 1
 --- !u!1101 &-1981231887922163565
@@ -83,7 +83,7 @@ AnimatorStateTransition:
   m_Name: 
   m_Conditions:
   - m_ConditionMode: 3
-    m_ConditionEvent: MovementSpeed
+    m_ConditionEvent: RunForward
     m_EventTreshold: 0.01
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: 6978519776591191765}
@@ -108,7 +108,7 @@ AnimatorController:
   m_Name: RatAnimator
   serializedVersion: 5
   m_AnimatorParameters:
-  - m_Name: MovementSpeed
+  - m_Name: RunForward
     m_Type: 1
     m_DefaultFloat: 0
     m_DefaultInt: 0
@@ -192,7 +192,7 @@ AnimatorState:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: RunForward
-  m_Speed: 0.7
+  m_Speed: 1
   m_CycleOffset: 0
   m_Transitions:
   - {fileID: -3864701364640074777}
@@ -205,9 +205,9 @@ AnimatorState:
   m_MirrorParameterActive: 0
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
-  m_Motion: {fileID: 7400000, guid: c7379f8d9e3fb664a877630578984f68, type: 3}
+  m_Motion: {fileID: 7400000, guid: 9c3077978f27f074ebebec3c931dbef6, type: 3}
   m_Tag: 
-  m_SpeedParameter: MovementSpeed
+  m_SpeedParameter: RunForward
   m_MirrorParameter: 
   m_CycleOffsetParameter: 
   m_TimeParameter: 

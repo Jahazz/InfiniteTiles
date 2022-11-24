@@ -1,9 +1,10 @@
 using AYellowpaper;
 using InfiniteTiles.Weapon;
 using System.Collections.Generic;
+using UnityEditor.Animations;
 using UnityEngine;
 
-namespace InfiniteTiles.Character
+namespace InfiniteTiles.Character.Animation
 {
     public class CharacterAnimatorController : MonoBehaviour
     {
@@ -11,16 +12,11 @@ namespace InfiniteTiles.Character
         [field: SerializeField]
         private Animator CharacterAnimator { get; set; }
         [field: SerializeField]
-        private string MovementSpeedVariableName { get; set; }
+        private CharacterAnimation MovementSpeedVariableData { get; set; }
         [field: SerializeField]
         private string DeathVariableName { get; set; }
         [field: SerializeField]
         private List<string> AttackVariableNameCollection { get; set; }
-
-        protected virtual void Update ()
-        {
-            UpdateAnimationSpeed();
-        }
 
         protected virtual void OnEnable ()
         {
@@ -32,9 +28,14 @@ namespace InfiniteTiles.Character
             DetachFromEvents();
         }
 
+        protected virtual void Update ()
+        {
+            UpdateAnimationSpeed();
+        }
+
         private void UpdateAnimationSpeed ()
         {
-            CharacterAnimator.SetFloat(MovementSpeedVariableName, ConnectedCharacter.Value.ConnectedRigidbody.velocity.magnitude);
+            CharacterAnimator.SetFloat(MovementSpeedVariableData.AnimatorParameterName, ConnectedCharacter.Value.ConnectedRigidbody.velocity.magnitude * MovementSpeedVariableData.AnimationSpeedFactor);
         }
 
         private void AttachToEvents ()

@@ -49,11 +49,6 @@ namespace InfiniteTiles.Character
             return transform;
         }
 
-        public float GetCurrentCharacterSpeed ()
-        {
-            return ConnectedRigidbody.velocity.magnitude;
-        }
-
         protected virtual void OnDestroy ()
         {
             DetachFromStatsEvents();
@@ -127,7 +122,7 @@ namespace InfiniteTiles.Character
 
         private void UpdateCharacterSpeed ()
         {
-            ConnectedRigidbody.AddForce((CurrentCharacterSpeed * RotationTransform.forward) - ConnectedRigidbody.velocity, ForceMode.VelocityChange);
+            ConnectedRigidbody.AddForce((CurrentCharacterSpeed * transform.forward) - ConnectedRigidbody.velocity, ForceMode.VelocityChange);
         }
     }
 }

@@ -363,17 +363,12 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 8
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 7578528554400621039, guid: 8458f50765dd8064d89a1b7a3ab6a21d, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 8458f50765dd8064d89a1b7a3ab6a21d, type: 3}
 --- !u!4 &7335576610275720437 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7578528554407874143, guid: 8458f50765dd8064d89a1b7a3ab6a21d,
-    type: 3}
-  m_PrefabInstance: {fileID: 928132532690956970}
-  m_PrefabAsset: {fileID: 0}
---- !u!95 &7335576610284966725 stripped
-Animator:
-  m_CorrespondingSourceObject: {fileID: 7578528554400621039, guid: 8458f50765dd8064d89a1b7a3ab6a21d,
     type: 3}
   m_PrefabInstance: {fileID: 928132532690956970}
   m_PrefabAsset: {fileID: 0}
@@ -403,17 +398,17 @@ PrefabInstance:
     - target: {fileID: 1244363303999491785, guid: e150921e61a04d0498642780dc4d81a9,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 1.78
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1244363303999491785, guid: e150921e61a04d0498642780dc4d81a9,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 3.1101995
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1244363303999491785, guid: e150921e61a04d0498642780dc4d81a9,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: -5.69
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1244363303999491785, guid: e150921e61a04d0498642780dc4d81a9,
         type: 3}
@@ -551,6 +546,26 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 1222641701408690113}
   m_PrefabAsset: {fileID: 0}
+--- !u!95 &1570048114
+Animator:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 122564705651818805}
+  m_Enabled: 1
+  m_Avatar: {fileID: 9000000, guid: ae44b79b11cf1d54095a1865b8722bde, type: 3}
+  m_Controller: {fileID: 9100000, guid: cf69a2152b1f1e5408e7b2166c2f961a, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 1
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!114 &1334894255134536972
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -565,8 +580,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ConnectedCharacter:
     _underlyingValue: {fileID: 122564705651818762}
-  <CharacterAnimator>k__BackingField: {fileID: 7335576610284966725}
-  <MovementSpeedVariableName>k__BackingField: MovementSpeed
+  <CharacterAnimator>k__BackingField: {fileID: 1570048114}
+  <MovementSpeedVariableData>k__BackingField:
+    <AnimatorParameterName>k__BackingField: RunForward
+    <AnimationSpeedFactor>k__BackingField: 0.35
+    <SetClip>k__BackingField: {fileID: 0}
   <DeathVariableName>k__BackingField: 
   <AttackVariableNameCollection>k__BackingField:
   - JumpBite
