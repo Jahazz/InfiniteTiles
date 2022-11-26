@@ -6,6 +6,9 @@ using CodeBase;
 
 public class EnemyManager : MonoBehaviour
 {
+    public delegate void EnemySpawnParameters(Enemy spawnedEnemy);
+    public event EnemySpawnParameters OnEnemySpawned;
+
     [field: SerializeField]
     private List<Enemy> EnemiesToSpawn { get; set; } = new List<Enemy>();
     [field: SerializeField]
@@ -68,6 +71,7 @@ public class EnemyManager : MonoBehaviour
 
         spawnedEnemy.Initialize(PlayerController, this);
         CurrentlyPresentEnemies.Add(spawnedEnemy);
+        OnEnemySpawned?.Invoke(spawnedEnemy);
     }
 
     private Vector3 GetRandomPointBehindBounds ()

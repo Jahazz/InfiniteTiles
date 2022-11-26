@@ -28,7 +28,7 @@ public class CharacterOnHitEffect : MonoBehaviour
         BaseCharacter.Value.OnHitRecieved -= HandleOnHitRecieved;
     }
 
-    private void HandleOnHitRecieved ()
+    private void HandleOnHitRecieved (IBaseCharacter target, int hitValue, bool isCrit)
     {
         Instantiate(ParticleSystemPrefab, transform).PlayOneShot();
     }

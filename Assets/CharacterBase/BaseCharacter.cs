@@ -10,7 +10,8 @@ namespace InfiniteTiles.Character
         where BaseCharacterDataType : BaseCharacterData
         where BaseCharacterStatsType : BaseCharacterStats<BaseCharacterDataType>, new()
     {
-        public event OnHitRecievedArguments OnHitRecieved;
+        public event HitRecievedArguments OnHitRecieved;
+        public event CharacterDeathArguments OnCharacterDeath;
 
         [field: Space]
         [field: Header(nameof(BaseCharacter<BaseCharacterStatsType, BaseCharacterDataType>))]
@@ -95,13 +96,14 @@ namespace InfiniteTiles.Character
         protected virtual void Die ()
         {
             IsAlive = false;
+            OnCharacterDeath?.Invoke();
             Debug.Log("Died");
         }
 
         public void GetDamaged (int damageValue)
         {
             CharacterStats.Health.CurrentValue.PresentValue -= damageValue;
-            OnHitRecieved?.Invoke();
+            OnHitRecieved?.Invoke(this, damageValue, false);
         }
 
         private void OnHealthChange (int value)
