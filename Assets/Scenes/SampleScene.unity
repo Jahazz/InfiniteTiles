@@ -841,6 +841,12 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 2448555514087489488}
   m_PrefabAsset: {fileID: 0}
+--- !u!136 &2032053573 stripped
+CapsuleCollider:
+  m_CorrespondingSourceObject: {fileID: 1399027769, guid: 9e089c59fed134d43bd32368c5404f4f,
+    type: 3}
+  m_PrefabInstance: {fileID: 2448555514087489488}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &2096498276
 GameObject:
   m_ObjectHideFlags: 0
@@ -890,6 +896,109 @@ MonoBehaviour:
   - {fileID: 4830004182973512627, guid: 42b0780503990c242b657990f57eed96, type: 3}
   - {fileID: 4830004182973512627, guid: f7b8f7a197383e14eacfd2d0122cdfe6, type: 3}
   - {fileID: 4830004182973512627, guid: ecc67b57a0f6e8a49ad8ccdaed08e557, type: 3}
+--- !u!1001 &1615838124135965197
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 2032053572}
+    m_Modifications:
+    - target: {fileID: 11377621974287649, guid: 999938120f6eb2848a68605250f2d2e8,
+        type: 3}
+      propertyPath: <CastEffect>k__BackingField
+      value: 
+      objectReference: {fileID: 3442037826183677840, guid: 1a272e8f0c2df09458d7574cd06dd8dc,
+        type: 3}
+    - target: {fileID: 11377621974287649, guid: 999938120f6eb2848a68605250f2d2e8,
+        type: 3}
+      propertyPath: <Projectile>k__BackingField
+      value: 
+      objectReference: {fileID: 976058042, guid: 38b38f253fe32f0429c6b467ae42c086,
+        type: 3}
+    - target: {fileID: 11377621974287649, guid: 999938120f6eb2848a68605250f2d2e8,
+        type: 3}
+      propertyPath: <EnemyManager>k__BackingField
+      value: 
+      objectReference: {fileID: 327545921}
+    - target: {fileID: 11377621974287649, guid: 999938120f6eb2848a68605250f2d2e8,
+        type: 3}
+      propertyPath: <PlayerCharacter>k__BackingField
+      value: 
+      objectReference: {fileID: 2032053572}
+    - target: {fileID: 3039460226186856631, guid: 999938120f6eb2848a68605250f2d2e8,
+        type: 3}
+      propertyPath: m_Name
+      value: FireballWeapon
+      objectReference: {fileID: 0}
+    - target: {fileID: 3595948019162901904, guid: 999938120f6eb2848a68605250f2d2e8,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3595948019162901904, guid: 999938120f6eb2848a68605250f2d2e8,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3595948019162901904, guid: 999938120f6eb2848a68605250f2d2e8,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3595948019162901904, guid: 999938120f6eb2848a68605250f2d2e8,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3595948019162901904, guid: 999938120f6eb2848a68605250f2d2e8,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3595948019162901904, guid: 999938120f6eb2848a68605250f2d2e8,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3595948019162901904, guid: 999938120f6eb2848a68605250f2d2e8,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3595948019162901904, guid: 999938120f6eb2848a68605250f2d2e8,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3595948019162901904, guid: 999938120f6eb2848a68605250f2d2e8,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3595948019162901904, guid: 999938120f6eb2848a68605250f2d2e8,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3595948019162901904, guid: 999938120f6eb2848a68605250f2d2e8,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 999938120f6eb2848a68605250f2d2e8, type: 3}
+--- !u!114 &1615838124135965198 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 11377621974287649, guid: 999938120f6eb2848a68605250f2d2e8,
+    type: 3}
+  m_PrefabInstance: {fileID: 1615838124135965197}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6ff2508e4187de5418bd0dd7218caa30, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &2448555514087489488
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1013,6 +1122,21 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4900222664891650378, guid: 9e089c59fed134d43bd32368c5404f4f,
         type: 3}
+      propertyPath: <DeathVariableName>k__BackingField
+      value: IsAlive
+      objectReference: {fileID: 0}
+    - target: {fileID: 4900222664891650378, guid: 9e089c59fed134d43bd32368c5404f4f,
+        type: 3}
+      propertyPath: <AttackVariableNameCollection>k__BackingField.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4900222664891650378, guid: 9e089c59fed134d43bd32368c5404f4f,
+        type: 3}
+      propertyPath: <AttackVariableNameCollection>k__BackingField.Array.data[0]
+      value: CastSpell
+      objectReference: {fileID: 0}
+    - target: {fileID: 4900222664891650378, guid: 9e089c59fed134d43bd32368c5404f4f,
+        type: 3}
       propertyPath: <MovementSpeedVariableData>k__BackingField.<AnimationSpeedFactor>k__BackingField
       value: 0.1
       objectReference: {fileID: 0}
@@ -1081,6 +1205,21 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6867152523941275090, guid: 9e089c59fed134d43bd32368c5404f4f,
+        type: 3}
+      propertyPath: weaponsCollection.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6867152523941275090, guid: 9e089c59fed134d43bd32368c5404f4f,
+        type: 3}
+      propertyPath: weaponsCollection.Array.data[0]
+      value: 
+      objectReference: {fileID: 1615838124135965198}
+    - target: {fileID: 6867152523941275090, guid: 9e089c59fed134d43bd32368c5404f4f,
+        type: 3}
+      propertyPath: <ConnectedCollider>k__BackingField
+      value: 
+      objectReference: {fileID: 2032053573}
     - target: {fileID: 6867152523941275090, guid: 9e089c59fed134d43bd32368c5404f4f,
         type: 3}
       propertyPath: <GroundDetectorRayLenght>k__BackingField

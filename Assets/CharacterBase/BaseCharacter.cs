@@ -12,11 +12,14 @@ namespace InfiniteTiles.Character
     {
         public event HitRecievedArguments OnHitRecieved;
         public event CharacterDeathArguments OnCharacterDeath;
+        public bool IsAlive { get; set; } = true;
 
         [field: Space]
         [field: Header(nameof(BaseCharacter<BaseCharacterStatsType, BaseCharacterDataType>))]
         [field: SerializeField]
         public Rigidbody ConnectedRigidbody { get; set; }
+        [field: SerializeField]
+        public Collider ConnectedCollider { get; set; }
         [field: SerializeField]
         public Transform RotationTransform { get; set; }
         [RequireInterface(typeof(IBaseWeapon))]
@@ -27,7 +30,6 @@ namespace InfiniteTiles.Character
         private bool IsMovingByTranslation { get; set; }
 
         public BaseCharacterStatsType CharacterStats { get; private set; }
-        private bool IsAlive { get; set; } = true;
         [field: SerializeField]
         private BaseCharacterDataType CharacterDataScriptableObject { get; set; }
         public List<MonoBehaviour> WeaponsCollection { get => weaponsCollection; set => weaponsCollection = value; }
@@ -72,7 +74,10 @@ namespace InfiniteTiles.Character
 
         protected virtual void InitializeWeapons ()
         {
-
+            foreach (IBaseWeapon item in WeaponsCollection)
+            {
+                item.Initialize(this);
+            }
         }
 
         protected virtual void AttachToStatsEvents ()
@@ -96,14 +101,16 @@ namespace InfiniteTiles.Character
         protected virtual void Die ()
         {
             IsAlive = false;
-            OnCharacterDeath?.Invoke();
-            Debug.Log("Died");
+            ConnectedRigidbody.velocity = Vector3.zero;
+            ConnectedRigidbody.isKinematic = true;
+            ConnectedCollider.isTrigger = true;
+            OnCharacterDeath?.Invoke(this);
         }
 
         public void GetDamaged (int damageValue)
         {
-            CharacterStats.Health.CurrentValue.PresentValue -= damageValue;
             OnHitRecieved?.Invoke(this, damageValue, false);
+            CharacterStats.Health.CurrentValue.PresentValue -= damageValue;
         }
 
         private void OnHealthChange (int value)
@@ -124,7 +131,14 @@ namespace InfiniteTiles.Character
 
         private void UpdateCharacterSpeed ()
         {
-            ConnectedRigidbody.AddForce((CurrentCharacterSpeed * transform.forward) - ConnectedRigidbody.velocity, ForceMode.VelocityChange);
+            if(IsAlive == true)
+            {
+                ConnectedRigidbody.AddForce((CurrentCharacterSpeed * transform.forward) - ConnectedRigidbody.velocity, ForceMode.VelocityChange);
+            }
+            else
+            {
+                ConnectedRigidbody.velocity = Vector3.zero;
+            }
         }
     }
 }

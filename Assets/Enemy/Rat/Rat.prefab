@@ -477,6 +477,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1244363303999491787, guid: e150921e61a04d0498642780dc4d81a9,
         type: 3}
+      propertyPath: <ConnectedCollider>k__BackingField
+      value: 
+      objectReference: {fileID: 2421689641174586946}
+    - target: {fileID: 1244363303999491787, guid: e150921e61a04d0498642780dc4d81a9,
+        type: 3}
       propertyPath: <CharacterDataScriptableObject>k__BackingField
       value: 
       objectReference: {fileID: 11400000, guid: 64f1523597d42ef4b839c85fc2f246af,
@@ -585,9 +590,15 @@ MonoBehaviour:
     <AnimatorParameterName>k__BackingField: RunForward
     <AnimationSpeedFactor>k__BackingField: 0.35
     <SetClip>k__BackingField: {fileID: 0}
-  <DeathVariableName>k__BackingField: 
+  <DeathVariableName>k__BackingField: IsAlive
   <AttackVariableNameCollection>k__BackingField:
   - JumpBite
+--- !u!136 &2421689641174586946 stripped
+CapsuleCollider:
+  m_CorrespondingSourceObject: {fileID: 3561260728696379779, guid: e150921e61a04d0498642780dc4d81a9,
+    type: 3}
+  m_PrefabInstance: {fileID: 1222641701408690113}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &8205487401166214723 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7000860426967701890, guid: e150921e61a04d0498642780dc4d81a9,

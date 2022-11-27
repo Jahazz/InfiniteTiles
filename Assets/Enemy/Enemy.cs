@@ -31,8 +31,11 @@ public class Enemy : BaseCharacter<BaseCharacterStats<BaseCharacterData>, BaseCh
 
     protected override void Update ()
     {
-        RespawnIfNotRendered();
-        UpdateModelRotation();
+        if (IsAlive == true)
+        {
+            RespawnIfNotRendered();
+            UpdateModelRotation();
+        }
 
         base.Update();
     }

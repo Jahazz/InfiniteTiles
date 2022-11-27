@@ -6,7 +6,7 @@ using CodeBase;
 
 public class EnemyManager : MonoBehaviour
 {
-    public delegate void EnemySpawnParameters(Enemy spawnedEnemy);
+    public delegate void EnemySpawnParameters (Enemy spawnedEnemy);
     public event EnemySpawnParameters OnEnemySpawned;
 
     [field: SerializeField]
@@ -21,7 +21,7 @@ public class EnemyManager : MonoBehaviour
     private float SpawnRangeBehindBounds { get; set; }
     [field: SerializeField]
     private float SpawnRangeBehindBoundsOffset { get; set; }
-    private List<Enemy> CurrentlyPresentEnemies { get; set; } = new List<Enemy>();
+    public List<Enemy> CurrentlyPresentEnemies { get; private set; } = new List<Enemy>();
 
     private Rect NorthRect { get; set; }
     private Rect SouthRect { get; set; }
@@ -72,6 +72,13 @@ public class EnemyManager : MonoBehaviour
         spawnedEnemy.Initialize(PlayerController, this);
         CurrentlyPresentEnemies.Add(spawnedEnemy);
         OnEnemySpawned?.Invoke(spawnedEnemy);
+        spawnedEnemy.OnCharacterDeath += HandleEnemyDeath;
+    }
+
+    private void HandleEnemyDeath (IBaseCharacter target)
+    {
+        target.OnCharacterDeath -= HandleEnemyDeath;
+        CurrentlyPresentEnemies.Remove((Enemy)target);
     }
 
     private Vector3 GetRandomPointBehindBounds ()

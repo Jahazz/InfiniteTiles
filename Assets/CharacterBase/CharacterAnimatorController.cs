@@ -35,18 +35,30 @@ namespace InfiniteTiles.Character.Animation
 
         private void UpdateAnimationSpeed ()
         {
-            CharacterAnimator.SetFloat(MovementSpeedVariableData.AnimatorParameterName, ConnectedCharacter.Value.ConnectedRigidbody.velocity.magnitude * MovementSpeedVariableData.AnimationSpeedFactor);
+            if (ConnectedCharacter.Value.IsAlive == true)
+            {
+                CharacterAnimator.SetFloat(MovementSpeedVariableData.AnimatorParameterName, ConnectedCharacter.Value.ConnectedRigidbody.velocity.magnitude * MovementSpeedVariableData.AnimationSpeedFactor);
+            }
+        }
+
+        private void ToggleDeathAnimation (IBaseCharacter target)
+        {
+            CharacterAnimator.SetFloat(MovementSpeedVariableData.AnimatorParameterName, 0);
+            CharacterAnimator.Play("Death");
         }
 
         private void AttachToEvents ()
         {
             int weaponIndex = 0;
+
             foreach (IBaseWeapon weapon in ConnectedCharacter.Value.WeaponsCollection)
             {
                 int currentIndex = weaponIndex;
                 weapon.OnAttackStart += (target) => HandleWeaponAttackStart(target, weapon, currentIndex);
                 weaponIndex++;
             }
+
+            ConnectedCharacter.Value.OnCharacterDeath += ToggleDeathAnimation;
         }
 
         private void HandleWeaponAttackStart (IDamageable target, IBaseWeapon weapon, int weaponIndex)

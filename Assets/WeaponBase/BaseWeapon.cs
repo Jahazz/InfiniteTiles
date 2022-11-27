@@ -15,11 +15,13 @@ namespace InfiniteTiles.Weapon
         public IDamageable CurrentTarget { get; set; }
         public BaseWeaponStatsType WeaponStats { get; set; }
         private float LastWeaponUsage { get; set; }
+        private IBaseCharacter Owner { get; set; }
 
-        public void Initialize ()
+        public void Initialize (IBaseCharacter owner)
         {
             WeaponStats = new BaseWeaponStatsType();
             WeaponStats.InitializeBaseData(WeaponData);
+            Owner = owner;
             LastWeaponUsage = Time.time;
         }
 
@@ -42,14 +44,9 @@ namespace InfiniteTiles.Weapon
             CheckFireConditions();
         }
 
-        protected virtual void Start ()
-        {
-            Initialize();
-        }
-
         private void CheckFireConditions ()
         {
-            if (IsTargetInRange(CurrentTarget) == true && IsWeaponOnCooldown() == false)
+            if (Owner.IsAlive == true && CurrentTarget != null && IsTargetInRange(CurrentTarget) == true && IsWeaponOnCooldown() == false)
             {
                 LastWeaponUsage = Time.time;
                 UseWeapon();

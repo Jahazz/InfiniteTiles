@@ -29,7 +29,7 @@ public class DamageDisplayManager : MonoBehaviour
     {
         MainEnemyManager.OnEnemySpawned += HandleOnEnemySpawned;
         MainCharacter.OnHitRecieved += HandleHitRecieved;
-        MainCharacter.OnCharacterDeath += () => HandleOnCharacterDeath(MainCharacter);
+        MainCharacter.OnCharacterDeath += HandleOnCharacterDeath;
     }
 
     private void DetachFromEvents ()
@@ -40,14 +40,14 @@ public class DamageDisplayManager : MonoBehaviour
 
     private void HandleOnCharacterDeath (IBaseCharacter dyingCharacter)
     {
-        dyingCharacter.OnCharacterDeath -= () => HandleOnCharacterDeath(dyingCharacter);
+        dyingCharacter.OnCharacterDeath -= HandleOnCharacterDeath;
         dyingCharacter.OnHitRecieved -= HandleHitRecieved;
     }
 
     private void HandleOnEnemySpawned (Enemy spawnedEnemy)
     {
         spawnedEnemy.OnHitRecieved += HandleHitRecieved;
-        spawnedEnemy.OnCharacterDeath += () => HandleOnCharacterDeath(spawnedEnemy);
+        spawnedEnemy.OnCharacterDeath += HandleOnCharacterDeath;
     }
 
     private void HandleHitRecieved (IBaseCharacter target, int hitValue, bool isCrit)
