@@ -7,13 +7,14 @@ public class CustomTileManager : TileManager<CustomTile>
 {
     [field: SerializeField]
     private List<CustomTile> TilePrefabsCollection { get; set; } = new List<CustomTile>();
-    [field: SerializeField]
-    public NavMeshSurface NavMesh { get; private set; }
 
     protected override void Awake ()
     {
         AttachToEvents();
-        base.Awake();
+        if (TilePrefabsCollection.Count > 0)
+        {
+            base.Awake();
+        }
     }
 
     private void AttachToEvents ()

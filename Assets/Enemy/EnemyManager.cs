@@ -6,6 +6,9 @@ using CodeBase;
 
 public class EnemyManager : MonoBehaviour
 {
+    public delegate void EnemySpawnParameters (Enemy spawnedEnemy);
+    public event EnemySpawnParameters OnEnemySpawned;
+
     [field: SerializeField]
     private List<Enemy> EnemiesToSpawn { get; set; } = new List<Enemy>();
     [field: SerializeField]
@@ -18,7 +21,7 @@ public class EnemyManager : MonoBehaviour
     private float SpawnRangeBehindBounds { get; set; }
     [field: SerializeField]
     private float SpawnRangeBehindBoundsOffset { get; set; }
-    private List<Enemy> CurrentlyPresentEnemies { get; set; } = new List<Enemy>();
+    public List<Enemy> CurrentlyPresentEnemies { get; private set; } = new List<Enemy>();
 
     private Rect NorthRect { get; set; }
     private Rect SouthRect { get; set; }
@@ -28,10 +31,9 @@ public class EnemyManager : MonoBehaviour
 
     public void Start ()
     {
-        InitializeSpawnRects();
-
         if (EnemiesToSpawn.Count > 0)
         {
+            InitializeSpawnRects();
             StartCoroutine(EnemySpawnCoroutine());
         }
     }
@@ -40,8 +42,8 @@ public class EnemyManager : MonoBehaviour
     {
         float doubleSpawnRangeBehindBoundsOffset = (SpawnRangeBehindBoundsOffset * 2);
         Rect rangeRect = TileManager.RangeDetector.RangeDetectorSize;
-         extendedRangeRect = new Rect(rangeRect.xMin- SpawnRangeBehindBoundsOffset, rangeRect.yMin - SpawnRangeBehindBoundsOffset, rangeRect.width + doubleSpawnRangeBehindBoundsOffset, rangeRect.height + doubleSpawnRangeBehindBoundsOffset);
-        
+        extendedRangeRect = new Rect(rangeRect.xMin - SpawnRangeBehindBoundsOffset, rangeRect.yMin - SpawnRangeBehindBoundsOffset, rangeRect.width + doubleSpawnRangeBehindBoundsOffset, rangeRect.height + doubleSpawnRangeBehindBoundsOffset);
+
         NorthRect = new Rect(extendedRangeRect.xMin, extendedRangeRect.yMax, extendedRangeRect.width + SpawnRangeBehindBounds, SpawnRangeBehindBounds);
         SouthRect = new Rect(extendedRangeRect.xMin - SpawnRangeBehindBounds, extendedRangeRect.yMin - SpawnRangeBehindBounds, extendedRangeRect.width + SpawnRangeBehindBounds, SpawnRangeBehindBounds);
         EastRect = new Rect(extendedRangeRect.xMax, extendedRangeRect.yMin - SpawnRangeBehindBounds, SpawnRangeBehindBounds, extendedRangeRect.height + SpawnRangeBehindBounds);
@@ -67,8 +69,16 @@ public class EnemyManager : MonoBehaviour
         Enemy enemyToSpawn = EnemiesToSpawn[Random.Range(0, EnemiesToSpawn.Count)];
         Enemy spawnedEnemy = Instantiate(enemyToSpawn, GetRandomPointBehindBounds(), Quaternion.identity);
 
-        spawnedEnemy.Initialize(PlayerController, TileManager, this);
+        spawnedEnemy.Initialize(PlayerController, this);
         CurrentlyPresentEnemies.Add(spawnedEnemy);
+        OnEnemySpawned?.Invoke(spawnedEnemy);
+        spawnedEnemy.OnCharacterDeath += HandleEnemyDeath;
+    }
+
+    private void HandleEnemyDeath (IBaseCharacter target)
+    {
+        target.OnCharacterDeath -= HandleEnemyDeath;
+        CurrentlyPresentEnemies.Remove((Enemy)target);
     }
 
     private Vector3 GetRandomPointBehindBounds ()

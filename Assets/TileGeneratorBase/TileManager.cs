@@ -51,7 +51,6 @@ namespace TileGenerator
 
         private void GenerateCenterTile ()
         {
-
             SideSize = GenerateTileAndAddToTiles(Vector3.zero, Vector2Int.zero).GetTileSize();
         }
 

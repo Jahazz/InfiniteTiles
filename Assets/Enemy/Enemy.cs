@@ -15,14 +15,12 @@ public class Enemy : BaseCharacter<BaseCharacterStats<BaseCharacterData>, BaseCh
     private float NonRenderTimeToRespawn { get; set; }
 
     private float LastRendererTime { get; set; }
-    private CustomTileManager TileManager { get; set; }
     private EnemyManager EnemyManager { get; set; }
     public IDamageable CurrentTarget { get; set; }
 
-    public void Initialize (IDamageable target, CustomTileManager tileManager, EnemyManager enemyManager)
+    public void Initialize (IDamageable target, EnemyManager enemyManager)
     {
         CurrentTarget = target;
-        TileManager = tileManager;
         EnemyManager = enemyManager;
         LastRendererTime = Time.time;
 
@@ -33,8 +31,11 @@ public class Enemy : BaseCharacter<BaseCharacterStats<BaseCharacterData>, BaseCh
 
     protected override void Update ()
     {
-        RespawnIfNotRendered();
-        UpdateModelRotation();
+        if (IsAlive == true)
+        {
+            RespawnIfNotRendered();
+            UpdateModelRotation();
+        }
 
         base.Update();
     }
@@ -52,8 +53,8 @@ public class Enemy : BaseCharacter<BaseCharacterStats<BaseCharacterData>, BaseCh
     private void UpdateModelRotation ()
     {
         Vector3 targetPostition = CurrentTarget.GetTargetTransform().position;
-        targetPostition.y = RotationTransform.transform.position.y;
-        RotationTransform.LookAt(targetPostition);
+        targetPostition.y = transform.position.y;
+        transform.LookAt(targetPostition);
     }
 
     private void RespawnIfNotRendered ()

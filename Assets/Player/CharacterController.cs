@@ -16,7 +16,7 @@ namespace InfiniteTiles.Character.PlayerCharacter
 
             if (value != Vector2.zero)
             {
-                RotationTransform.rotation = ConvertInputToRotation(value);
+                transform.rotation = ConvertInputToRotation(value);
                 CurrentCharacterSpeed = CharacterStats.MovementSpeed.CurrentValue.PresentValue;
             }
             else

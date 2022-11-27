@@ -10,12 +10,16 @@ namespace InfiniteTiles.Character
         where BaseCharacterDataType : BaseCharacterData
         where BaseCharacterStatsType : BaseCharacterStats<BaseCharacterDataType>, new()
     {
-        public event OnHitRecievedArguments OnHitRecieved;
+        public event HitRecievedArguments OnHitRecieved;
+        public event CharacterDeathArguments OnCharacterDeath;
+        public bool IsAlive { get; set; } = true;
 
         [field: Space]
         [field: Header(nameof(BaseCharacter<BaseCharacterStatsType, BaseCharacterDataType>))]
         [field: SerializeField]
         public Rigidbody ConnectedRigidbody { get; set; }
+        [field: SerializeField]
+        public Collider ConnectedCollider { get; set; }
         [field: SerializeField]
         public Transform RotationTransform { get; set; }
         [RequireInterface(typeof(IBaseWeapon))]
@@ -26,7 +30,6 @@ namespace InfiniteTiles.Character
         private bool IsMovingByTranslation { get; set; }
 
         public BaseCharacterStatsType CharacterStats { get; private set; }
-        private bool IsAlive { get; set; } = true;
         [field: SerializeField]
         private BaseCharacterDataType CharacterDataScriptableObject { get; set; }
         public List<MonoBehaviour> WeaponsCollection { get => weaponsCollection; set => weaponsCollection = value; }
@@ -47,11 +50,6 @@ namespace InfiniteTiles.Character
         public Transform GetTargetTransform ()
         {
             return transform;
-        }
-
-        public float GetCurrentCharacterSpeed ()
-        {
-            return ConnectedRigidbody.velocity.magnitude;
         }
 
         protected virtual void OnDestroy ()
@@ -76,7 +74,10 @@ namespace InfiniteTiles.Character
 
         protected virtual void InitializeWeapons ()
         {
-
+            foreach (IBaseWeapon item in WeaponsCollection)
+            {
+                item.Initialize(this);
+            }
         }
 
         protected virtual void AttachToStatsEvents ()
@@ -100,13 +101,16 @@ namespace InfiniteTiles.Character
         protected virtual void Die ()
         {
             IsAlive = false;
-            Debug.Log("Died");
+            ConnectedRigidbody.velocity = Vector3.zero;
+            ConnectedRigidbody.isKinematic = true;
+            ConnectedCollider.isTrigger = true;
+            OnCharacterDeath?.Invoke(this);
         }
 
         public void GetDamaged (int damageValue)
         {
+            OnHitRecieved?.Invoke(this, damageValue, false);
             CharacterStats.Health.CurrentValue.PresentValue -= damageValue;
-            OnHitRecieved?.Invoke();
         }
 
         private void OnHealthChange (int value)
@@ -127,7 +131,14 @@ namespace InfiniteTiles.Character
 
         private void UpdateCharacterSpeed ()
         {
-            ConnectedRigidbody.AddForce((CurrentCharacterSpeed * RotationTransform.forward) - ConnectedRigidbody.velocity, ForceMode.VelocityChange);
+            if(IsAlive == true)
+            {
+                ConnectedRigidbody.AddForce((CurrentCharacterSpeed * transform.forward) - ConnectedRigidbody.velocity, ForceMode.VelocityChange);
+            }
+            else
+            {
+                ConnectedRigidbody.velocity = Vector3.zero;
+            }
         }
     }
 }
